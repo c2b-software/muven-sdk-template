@@ -1,0 +1,21 @@
+image: registry.c2bsoftware.com.br/c2b-gitlab-ci:latest
+
+stages:
+  - build-application
+
+before_script:
+  - cp /usr/app/.npmrc .
+
+build_and_deploy:
+  stage: build-application
+  only:
+    refs:
+      - master
+  script:
+    - npm install
+    - npm run build
+    - npm publish
+  artifacts:
+    paths:
+      - dist/
+      - node_modules/

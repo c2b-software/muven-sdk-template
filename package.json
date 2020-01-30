@@ -1,0 +1,39 @@
+{
+  "name": "@c2b/__SDK-NAME__",
+  "version": "0.0.19",
+  "description": "__SDK-NAME__",
+  "author": "C2B Software do Brasil",
+  "license": "ISC",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "npm t && rm -rf dist && tsc",
+    "fullPublish": "npm run build && git pull && git add . && git commit -m \"$GM\" && npm version patch && git push origin master --tags && npm publish"
+  },
+  "publishConfig": {
+    "registry": "https://repo.c2bsoftware.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/dsn-c2b/libraries/nodejs/__SDK-NAME__.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://gitlab.com/dsn-c2b/libraries/nodejs/__SDK-NAME__/issues"
+  },
+  "homepage": "https://gitlab.com/dsn-c2b/libraries/nodejs/__SDK-NAME__#readme",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "axios-mock-adapter": "^1.17.0",
+    "jest": "^25.0.0",
+    "ts-jest": "^24.3.0"
+  },
+  "dependencies": {
+    "@c2b/commons": "0.0.45",
+    "@c2b/muven-commons": "0.0.10",
+    "@c2b/muven-core": "0.0.341",
+    "@c2b/web-commons": "0.0.11",
+    "axios": "^0.19.0",
+    "typescript": "^3.7.3"
+  }
+}
