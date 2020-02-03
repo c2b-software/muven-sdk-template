@@ -23,7 +23,6 @@
   },
   "homepage": "https://gitlab.com/dsn-c2b/libraries/nodejs/__SDK-NAME__#readme",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "axios-mock-adapter": "^1.17.0",
     "jest": "^25.0.0",
     "ts-jest": "^24.3.0"
