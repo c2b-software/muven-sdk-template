@@ -1,15 +1,15 @@
 const mockAuthInfo = {
-    api_host: "https://somewebapioutthere.wat.com",
-    access_token: "abc123",
+    token1: 'a1',
+    token2: 'a2',
 }
 
-const mountRequestUrlWithAccessToken = function(path, queryinfo) {
+const mountRequestUrlWithAuthTokens = function(path, queryinfo) {
     if (!queryinfo) {
-        return `${mockAuthInfo.api_host}${path}?access_token=${mockAuthInfo.access_token}`
+        return `${mockAuthInfo.api_host}${path}?token1=${mockAuthInfo.token1}&token2=${mockAuthInfo.token2}`
     }
 
-    return `${mockAuthInfo.api_host}${path}?access_token=${mockAuthInfo.access_token}&${queryinfo.key}=${queryinfo.value}`
+    return `${mockAuthInfo.api_host}${path}?token1=${mockAuthInfo.token1}&token2=${mockAuthInfo.token2}&${queryinfo.key}=${queryinfo.value}`
 }
 
 exports.mockAuthInfo = mockAuthInfo
-exports.mountRequestUrlWithAccessToken = mountRequestUrlWithAccessToken
+exports.mountRequestUrlWithAuthTokens = mountRequestUrlWithAuthTokens
