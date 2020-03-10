@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { __NAME__Dto } from "@c2b/muven-core";
+import { __NAME__Dto } from "@c2b/muven-commons";
 import { AccessKeyResponseDto } from "../dto/auth/access_key_response_dto";
 
 export class RestUtils {
