@@ -12,9 +12,9 @@ build_and_deploy:
     refs:
       - master
   script:
-    - npm install
-    - npm run build
-    - npm publish
+    - yarn
+    - yarn build
+    - yarn publish
   artifacts:
     paths:
       - dist/
