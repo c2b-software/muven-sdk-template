@@ -7,8 +7,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "npm t && rm -rf dist && tsc",
-    "fullPublish": "npm run build && git pull && git add . && git commit -m \"$GM\" && npm version patch && git push origin master --tags"
+    "build": "yarn test && rm -rf dist && tsc",
+    "fullPublish": "yarn build && git pull && git add . && git commit -m \"$GM\" && yarn version --patch && git push origin master --tags"
   },
   "publishConfig": {
     "registry": "https://repo.c2bsoftware.com.br"

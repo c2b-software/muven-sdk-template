@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { __NAME__Dto } from "@c2b/muven-commons";
-import { AccessKeyResponseDto } from "../dto/auth/access_key_response_dto";
+import { BASE_URL } from "./api";
 
 export class RestUtils {
 
-    constructor(private baseUrl: string, protected options: __NAME__Dto, protected getToken?: getAccessTokenFn, private defaultHeaders?: { [key: string]: string }) {
+    constructor(protected options: __NAME__Dto, private defaultHeaders?: { [key: string]: string }) {
     }
 
     async post<BODY_TYPE, RESPONSE_TYPE>(url: string, data: BODY_TYPE, additionalQueryStringObject?: IQueryStringObject, config?: AxiosRequestConfig): Promise<RESPONSE_TYPE> {
@@ -73,43 +73,21 @@ export class RestUtils {
         try {
             return await cb();
         } catch (error) {
-
-            if (error?.response?.status === 401) {
-                try {
-                    await this.getToken(this.options, true);
-                    return await cb();
-                } catch (error) {
-                    throw error;
-                }
-            }
-
             throw error;
         }
 
     }
 
-    private async getUrl(url: string, additionalQueryStringObject?: IQueryStringObject): Promise<string> {
+    private async getUrl(endpoint: string, additionalQueryStringObject?: IQueryStringObject): Promise<string> {
 
-        if (!!this.baseUrl) {
-
-            if (!this.getToken) {
-                return `${this.baseUrl}${url}`;
-            }
-
-            const token = await this.getToken(this.options);
-            if (!additionalQueryStringObject) {
-                return `${this.baseUrl}${url}?access_token=${token.access_token}`;
-            }
-
-            const additionalQueryString = new URLSearchParams(additionalQueryStringObject);
-            return `${this.baseUrl}${url}?access_token=${token.access_token}&${additionalQueryString}`;
+        if (!additionalQueryStringObject) {
+            return `${BASE_URL}${endpoint}?chave_api=${this.options.chaveApi}&chave_aplicacao=${this.options.chaveAplicacao}`;
         }
 
-        return url;
+        const additionalQueryString = new URLSearchParams(additionalQueryStringObject);
+        return `${BASE_URL}${endpoint}?chave_api=${this.options.chaveApi}&chave_aplicacao=${this.options.chaveAplicacao}&${additionalQueryString}`;
     }    
 }
-
-export type getAccessTokenFn = (options: __NAME__Dto, force?: boolean) => Promise<AccessKeyResponseDto>;
 
 interface IQueryStringObject {
     [key: string]: string;
