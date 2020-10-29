@@ -24,27 +24,10 @@ export class RestUtils {
     }
 
     async get<T>(url: string, additionalQueryStringObject?: IQueryStringObject): Promise<T> {
-        try {
-
-            const resp = await this.executeRequestAndVerify(async () => {
-                return await axios.get(await this.getUrl(url, additionalQueryStringObject));
-            });
-            return resp.data;
-
-        } catch (error) {
-            let nrTentativas = 0;
-            while (nrTentativas <= 10) {
-                try {
-                    const resp = await this.executeRequestAndVerify(async () => {
-                        return await axios.get(await this.getUrl(url, additionalQueryStringObject));
-                    });
-                    return resp.data;
-                } catch (error) {
-                    nrTentativas++;
-                }
-            }
-            throw error;
-        }
+        const resp = await this.executeRequestAndVerify(async () => {
+            return await axios.get(await this.getUrl(url, additionalQueryStringObject));
+        });
+        return resp.data;
     }
 
     async delete<RESPONSE_TYPE>(url: string, additionalQueryStringObject?: IQueryStringObject): Promise<RESPONSE_TYPE> {
@@ -86,7 +69,7 @@ export class RestUtils {
 
         const additionalQueryString = new URLSearchParams(additionalQueryStringObject);
         return `${BASE_URL}${endpoint}?chave_api=${this.options.chaveApi}&chave_aplicacao=${this.options.chaveAplicacao}&${additionalQueryString}`;
-    }    
+    }
 }
 
 interface IQueryStringObject {
