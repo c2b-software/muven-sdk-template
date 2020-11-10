@@ -47,6 +47,7 @@ export class RestUtils {
             config.headers = this.defaultHeaders;
         }
 
+        config.timeout = 10000; // 10s
         return config;
 
     }
