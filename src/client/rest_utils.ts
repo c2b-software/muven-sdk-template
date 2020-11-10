@@ -23,16 +23,16 @@ export class RestUtils {
         return resp.data;
     }
 
-    async get<T>(url: string, additionalQueryStringObject?: IQueryStringObject): Promise<T> {
+    async get<T>(url: string, additionalQueryStringObject?: IQueryStringObject, config?: AxiosRequestConfig): Promise<T> {
         const resp = await this.executeRequestAndVerify(async () => {
-            return await axios.get(await this.getUrl(url, additionalQueryStringObject));
+            return await axios.get(await this.getUrl(url, additionalQueryStringObject), this.getConfig(config));
         });
         return resp.data;
     }
 
-    async delete<RESPONSE_TYPE>(url: string, additionalQueryStringObject?: IQueryStringObject): Promise<RESPONSE_TYPE> {
+    async delete<RESPONSE_TYPE>(url: string, additionalQueryStringObject?: IQueryStringObject, config?: AxiosRequestConfig): Promise<RESPONSE_TYPE> {
         const resp = await this.executeRequestAndVerify(async () => {
-            return await axios.delete(await this.getUrl(url, additionalQueryStringObject));
+            return await axios.delete(await this.getUrl(url, additionalQueryStringObject), this.getConfig(config));
         });
         return resp.data;
     }
@@ -48,6 +48,7 @@ export class RestUtils {
         }
 
         config.timeout = 10000; // 10s
+        config.timeoutErrorMessage = 'Maximum request timeout exceeded';
         return config;
 
     }
